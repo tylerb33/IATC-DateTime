@@ -34,10 +34,12 @@ namespace DateTimeUI
 
             if (previousDate.Ticks < 0)
             {
-
+                ConsoleOutput($"{ userDate } is { Math.Round(-previousDate.TotalDays, 0 , MidpointRounding.AwayFromZero) } days in the future.", "Cyan");
             }
-
-            ConsoleOutput($"It has been {previousDate.Days } days since { userDate }", "Cyan");
+            else
+            {
+                ConsoleOutput($"It has been {Math.Round(previousDate.TotalDays, 0, MidpointRounding.AwayFromZero) } days since { userDate }", "Cyan");
+            }
 
 
 
@@ -64,6 +66,11 @@ namespace DateTimeUI
 
 
             TimeSpan previousTime = DateTime.Now.Subtract(userTimeFormatted);
+
+            if (previousTime.Ticks < 0)
+            {
+                previousTime = previousTime.Add(TimeSpan.FromHours(24));
+            }
 
             Console.WriteLine($"It has been {previousTime.Hours} hours and {previousTime.Minutes} minutes since {userTime}.");
 
